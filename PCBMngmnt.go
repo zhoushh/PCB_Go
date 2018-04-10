@@ -19,20 +19,20 @@ type PCB struct {
 
 //键入进程块的函数
 func (p *PCB) SetPCB() {
-	Scanln(&temp)
-	_ = temp
+	//Scanln(&temp)
+	//_ = temp
 	Printf("\n请输入进程名：")
 	Scanf("%s", &p.name)
-	Scanln(&temp)
-	_ = temp
+	//Scanln(&temp)
+	//_ = temp
 	Printf("请输入优先级数：")
 	Scanf("%d", &p.priority)
-	Scanln(&temp)
-	_ = temp
+	//Scanln(&temp)
+	//_ = temp
 	Printf("请输入运行程序需要的时间：")
 	Scanf("%d", &p.timeNd)
-	Scanln(&temp)
-	_ = temp
+	//Scanln(&temp)
+	//_ = temp
 	p.timeToRun = p.timeNd
 	p.state = "Waiting"
 	p.ifPriorer = false
@@ -66,24 +66,24 @@ func main() {
 	var amount int
 	Printf("请输入进程数量：")
 	Scanf("%d", &amount)
-	Scanln(&temp)
-	_ = temp
-
+	//Scanln(&temp)
+	//_ = temp
+	
 	var pS [100]PCB //创建一个结构体数组来储存所有进程块
-
+	
 	for i := 0; i < amount; i++ {
 		Printf("\n这是第%d个进入的进程。\n*******键入回车继续*******", i+1)
 		pS[i].SetPCB()
 		pS[i].num = i
 	}
-
+	
 	Println("所有进程如下：")
 	Println("进程名 \t 状态 \t 优先级 \t 需要时间 \t 剩余时间 ")
 	for i := 0; i < amount; i++ {
 		pS[i].ShowProcess()
 	} //展示一次全部进程的最初状态
-
-	var tempStruct PCB  //临时结构体变量用于排序
+	
+	var tempStruct PCB //临时结构体变量用于排序
 	for k := 0; ; k++ { //无限循环以在不定的、适合的时间跳出循环
 		for i := 0; i < amount-1; i++ {
 			for j := 0; j < amount-1-i; j++ {
@@ -97,7 +97,7 @@ func main() {
 				}
 			}
 		} //排序进程
-
+		
 		for i := 0; i < amount; i++ {
 			if pS[i].timeToRun == 0 {
 				pS[i].state = "Finish"
@@ -114,11 +114,11 @@ func main() {
 		for i := 0; i < amount; i++ {
 			pS[i].ShowProcess()
 		}
-
+		
 		Println("*******按回车键继续*******")
 		Scanln(&temp)
 		_ = temp
-
+		
 		count := 0
 		for i := 0; i < amount; i++ {
 			if pS[i].timeToRun == 0 {
@@ -128,21 +128,21 @@ func main() {
 		if count == amount {
 			goto finish
 		} //判定全部进程已完成并跳出循环
-
+		
 		for i := 0; i < amount; i++ {
 			if pS[i].state != "Finish" {
 				pS[i].state = "Waiting"
 			}
 		} //重置状态
-
+		
 		if pS[0].timeToRun > 0 {
 			pS[0].timeToRun--
 		} //调整剩余时间
-
+		
 		if pS[0].priority > 0 {
 			pS[0].priority--
 		} //调整优先级
-
+		
 	}
 
 finish:
