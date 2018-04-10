@@ -19,6 +19,7 @@ type PCB struct {
 
 //键入进程块的函数
 func (p *PCB) SetPCB() {
+	//2018-4-10, change environment to Go 1.10   causing bugs on double enter to input data
 	//Scanln(&temp)
 	//_ = temp
 	Printf("\n请输入进程名：")
